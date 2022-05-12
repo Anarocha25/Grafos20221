@@ -34,9 +34,9 @@ class GrafoNaoDirigido():
         """
         vizinhos = []
         for aresta in self.arestas:
-            if aresta[0] == self.grau(vertice_v):
+            if aresta[0] == vertice_v[0]:
                 vizinhos.append(aresta[1])
-            elif aresta[1] == self.grau(vertice_v):
+            elif aresta[1] == vertice_v[0]:
                 vizinhos.append(aresta[0])
         return vizinhos
 
@@ -47,7 +47,7 @@ class GrafoNaoDirigido():
                 vertice1 (tuple): Contém o identificador e o rótulo do vertice 1
                 vertice2 (tuple): Contém o identificador e o rótulo do vertice 2
         """
-        return (self.grau(vertice1), self.grau(vertice2)) in self.arestas
+        return (vertice1[0], vertice2[0]) in self.arestas
 
     def peso(self, vertice1, vertice2):
         """ Se {vertice1, vertice2} ∈ E, retorna o peso da aresta {vertice1, vertice2}; 
@@ -58,7 +58,7 @@ class GrafoNaoDirigido():
                 vertice2 (tuple): Contém o identificador e o rótulo do vertice 2
         """
         if self.haAresta(vertice1, vertice2):
-            ind = self.arestas.index((self.grau(vertice1), self.grau(vertice2)))
+            ind = self.arestas.index((vertice1[0], vertice2[0]))
             return self.pesos[ind]
         else:
             return np.inf
