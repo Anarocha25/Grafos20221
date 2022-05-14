@@ -2,6 +2,10 @@ import numpy as np
 from parse import search
 
 class GrafoNaoDirigido():
+    vertices = {}
+    arestas = []
+    pesos = {}
+
     def __init__(self, arquivo) -> None:
         self.ler(arquivo)
 
@@ -82,18 +86,16 @@ class GrafoNaoDirigido():
             vertices, arestas = file.read().split('*edges')
             vertices = vertices.split('\n')[1:-1]
             arestas = arestas.split('\n')[1:-1]
-            self.vertices = []
-            self.arestas = []
-            self.pesos = []
             for ind, vertice in enumerate(vertices):
                 numero = search("{:d}", vertice)[0]
                 nome = vertice.replace(str(numero), '')
                 nome = nome.strip().replace('"', '')
-                self.vertices.append((numero, nome))
+                self.vertices[numero] =  nome
 
                 aux = arestas[ind].split()
-                self.arestas.append((int(aux[0]), int(aux[1])))
-                self.pesos.append(float(aux[-1]))
+                aresta = (int(aux[0]), int(aux[1]))
+                self.arestas.append(aresta)
+                self.pesos[str(aresta)] = float(aux[-1])
         
 if __name__ == '__main__':
     arquivo = 'facebook_santiago.net'
