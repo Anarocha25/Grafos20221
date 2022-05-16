@@ -61,10 +61,10 @@ class GrafoNaoDirigido():
                 vertice_key_1 int: Contém a chave do vertice 1
                 vertice_key_2 int: Contém a chave do vertice 2
         """
-        if self.haAresta(vertice_key_1, vertice_key_2):
-            return self.pesos[str((vertice_key_1, vertice_key_2))]
-        else:
-            return np.inf
+        return self.pesos.get(
+            str((vertice_key_1, vertice_key_2)),
+            np.inf
+        )
 
     def ler(self, arquivo):
         """ Carrega um grafo a partir de um arquivo .net definido como:
