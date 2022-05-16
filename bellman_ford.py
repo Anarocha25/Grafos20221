@@ -9,12 +9,13 @@ def bellman_ford(grafo: GrafoNaoDirigido, vertice_inicial: int):
     # Question: Why do we iterate over the vertices?
     for _ in range(1, grafo.qtdVertices()):
         for u, v in grafo.arestas:
-            if D[v] > D[u] + grafo.pesos[str((u, v))]:
-                D[v] = D[u] + grafo.pesos[str((u, v))]
+            peso = grafo.peso(u,v)
+            if D[v] > D[u] + peso:
+                D[v] = D[u] + peso
                 A[v] = u
 
     for u, v in grafo.arestas:
-        if D[v] > D[u] + grafo.pesos[str((u, v))]:
+        if D[v] > D[u] + grafo.peso(u,v):
             return False, None, None
 
     return True, D, A
