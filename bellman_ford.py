@@ -24,9 +24,14 @@ def bellman_ford(grafo: GrafoNaoDirigido, vertice_inicial: int):
 
 
 if __name__ == '__main__':
+    vertice_inicial = input("Vértice inicial (int): ")
+    try:
+        vertice_inicial = int(vertice_inicial)
+    except ValueError:
+        raise ValueError("Vértice inicial tem que ser um número")
+
     arquivo = os.path.join('arquivos', 'facebook_santiago.net')
     grafo = GrafoNaoDirigido(arquivo)
-    vertice_inicial = 2
 
     _, D, A = bellman_ford(grafo, vertice_inicial)
 
