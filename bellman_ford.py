@@ -23,7 +23,7 @@ def bellman_ford(grafo: GrafoNaoDirigido, vertice_inicial: int):
 
 
 if __name__ == '__main__':
-    arquivo = 'facebook_santiago.net'
+    arquivo = 'arquivos\\facebook_santiago.net'
     grafo = GrafoNaoDirigido(arquivo)
     vertice_inicial = 2
 
