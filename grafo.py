@@ -84,25 +84,26 @@ class GrafoNaoDirigido():
         with open(arquivo, "r") as file:
             vertices, arestas = file.read().split('*edges')
             vertices = vertices.split('\n')[1:-1]
-            arestas = arestas.split('\n')[1:-1]
+            
             for ind, vertice in enumerate(vertices):
                 numero = search("{:d}", vertice)[0]
                 nome = vertice.replace(str(numero), '')
                 nome = nome.strip().replace('"', '')
                 self.vertices[numero] =  nome
-
+            
+            arestas = arestas.split('\n')[1:-1]
+            for ind in range(len(arestas)):
                 aux = arestas[ind].split()
                 aresta = (int(aux[0]), int(aux[1]))
                 self.arestas.append(aresta)
                 self.pesos[str(aresta)] = float(aux[-1])
         
 if __name__ == '__main__':
-    arquivo = 'facebook_santiago.net'
+    arquivo = 'arquivos\\facebook_santiago.net'
     grafo_face = GrafoNaoDirigido(arquivo)
 
-
     assert grafo_face.qtdVertices() == 688
-    assert grafo_face.qtdArestas() == 688
+    assert grafo_face.qtdArestas() == 8725
     assert grafo_face.grau(1) == 58
     assert grafo_face.rotulo(1) == "João Luiz Ferreira Júnior"
     assert grafo_face.vizinhos(1) == [
