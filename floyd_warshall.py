@@ -1,13 +1,6 @@
 import numpy as np
+from utils import print_ex_5
 from grafo import GrafoNaoDirigido
-
-def mostrar_resultado(D: np.array):
-    lista_resultado = []
-    for ind in range(len(D)):
-        distancia = D[ind, :].tolist()
-        aux = [str(ind+1), distancia]
-        lista_resultado.append(aux)
-    return dict(lista_resultado)
 
 def floyd_warshall(grafo: GrafoNaoDirigido):
     D = np.empty((grafo.qtdVertices(), grafo.qtdVertices()))
@@ -24,13 +17,15 @@ def floyd_warshall(grafo: GrafoNaoDirigido):
             for vertice_v in grafo.vertices:
                 if D[vertice_u-1, vertice_v-1] > D[vertice_u-1, vertice_k-1] + D[vertice_k-1, vertice_v-1]:
                     D[vertice_u-1, vertice_v-1] = D[vertice_u-1, vertice_k-1] + D[vertice_k-1, vertice_v-1]
-    return mostrar_resultado(D)
+    return D
 
 if __name__ == '__main__':
     arquivo = 'arquivos\\floyd_warshall_small.net'
     grafo_face = GrafoNaoDirigido(arquivo)
 
     resposta = floyd_warshall(grafo_face)
+
+    print_ex_5(resposta)
 
     # gabarito =  np.empty((6,6))
     # gabarito.fill(np.inf)
