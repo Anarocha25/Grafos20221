@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from parse import search
 
 class GrafoNaoDirigido():
@@ -99,7 +100,7 @@ class GrafoNaoDirigido():
                 self.pesos[str(aresta)] = float(aux[-1])
         
 if __name__ == '__main__':
-    arquivo = 'arquivos\\facebook_santiago.net'
+    arquivo = os.path.join('arquivos', 'facebook_santiago.net')
     grafo_face = GrafoNaoDirigido(arquivo)
 
     assert grafo_face.qtdVertices() == 688

@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from grafo import GrafoNaoDirigido
 from utils import print_ex_4
 
@@ -22,7 +23,7 @@ def dijkstra(grafo: GrafoNaoDirigido, vertice_inicial: int):
 
 
 if __name__ == '__main__':
-    arquivo = 'arquivos\\facebook_santiago.net'
+    arquivo = os.path.join('arquivos', 'facebook_santiago.net')
     grafo = GrafoNaoDirigido(arquivo)
     vertice_inicial = 2
 
