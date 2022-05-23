@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from grafo import GrafoNaoDirigido
 from utils import print_ex_2
 
@@ -28,7 +29,7 @@ def busca_largura(grafo: GrafoNaoDirigido, vertice_s: int):
     return D, A
 
 if __name__ == '__main__':
-    arquivo = 'arquivos\\buscas.net'
+    arquivo = os.path.join('arquivos', 'buscas.net')
     grafo1 = GrafoNaoDirigido(arquivo)
     vertice_s = 7
     D, A = busca_largura(grafo1, vertice_s)

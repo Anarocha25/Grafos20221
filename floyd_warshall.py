@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from utils import print_ex_5
 from grafo import GrafoNaoDirigido
 
@@ -20,7 +21,7 @@ def floyd_warshall(grafo: GrafoNaoDirigido):
     return D
 
 if __name__ == '__main__':
-    arquivo = 'arquivos\\floyd_warshall_small.net'
+    arquivo = os.path.join('arquivos', 'floyd_warshall_small.net')
     grafo_face = GrafoNaoDirigido(arquivo)
 
     resposta = floyd_warshall(grafo_face)

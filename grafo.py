@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from parse import search
 
 class GrafoNaoDirigido():
@@ -51,7 +52,7 @@ class GrafoNaoDirigido():
                 vertice_key_1 int: Contém a chave do vertice 1
                 vertice_key_2 int: Contém a chave do vertice 2
         """
-        return (vertice_key_1, vertice_key_2) in self.arestas
+        return ((vertice_key_1, vertice_key_2) in self.arestas) or ((vertice_key_2, vertice_key_1) in self.arestas)
 
     def peso(self, vertice_key_1, vertice_key_2):
         """ Se {vertice_key_1, vertice_key_2} ∈ E, retorna o peso da aresta {vertice_key_1, vertice_key_2}; 
@@ -63,7 +64,10 @@ class GrafoNaoDirigido():
         """
         return self.pesos.get(
             str((vertice_key_1, vertice_key_2)),
-            np.inf
+            self.pesos.get(
+                str((vertice_key_2, vertice_key_1)),
+                np.inf
+            )
         )
 
     def ler(self, arquivo):
@@ -99,7 +103,7 @@ class GrafoNaoDirigido():
                 self.pesos[str(aresta)] = float(aux[-1])
         
 if __name__ == '__main__':
-    arquivo = 'arquivos\\facebook_santiago.net'
+    arquivo = os.path.join('arquivos', 'facebook_santiago.net')
     grafo_face = GrafoNaoDirigido(arquivo)
 
     assert grafo_face.qtdVertices() == 688
@@ -113,6 +117,8 @@ if __name__ == '__main__':
         521, 260, 131, 256, 241, 512, 53, 98, 211, 12
     ]
     assert grafo_face.haAresta(1, 135) is True
+    assert grafo_face.haAresta(135, 1) is True
     assert grafo_face.haAresta(1, 136) is False
     assert grafo_face.peso(1, 2) == np.inf
     assert grafo_face.peso(1, 12) == 1.0
+    assert grafo_face.peso(12, 1) == 1.0

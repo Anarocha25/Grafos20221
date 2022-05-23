@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from grafo import GrafoNaoDirigido
 from utils import print_ex_4
 
@@ -58,7 +59,7 @@ def hierholzer(grafo: GrafoNaoDirigido):
             return 1, ciclo
 
 if __name__ == '__main__':
-    arquivo = 'facebook_santiago.net'
+    arquivo = os.path.join('arquivos', 'facebook_santiago.net')
     grafo_face = GrafoNaoDirigido(arquivo)
     teste = hierholzer(grafo_face)
     print(teste)
