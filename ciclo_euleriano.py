@@ -48,15 +48,8 @@ def ciclo_euleriano(grafo: GrafoNaoDirigido):
     return T
     
 if __name__ == '__main__':
-<<<<<<< HEAD
     arquivo = os.path.join('arquivos', 'ContemCicloEuleriano.net')
     grafo = GrafoNaoDirigido(arquivo)
     ciclo = ciclo_euleriano(grafo)
-=======
-    arquivo = os.path.join('arquivos', 'facebook_santiago.net')
-    grafo_face = GrafoNaoDirigido(arquivo)
-    teste = hierholzer(grafo_face)
-    print(teste)
->>>>>>> 0bf21608016ffd2806cda62649c3a038a59e5657
 
     print_ex_3(ciclo)
