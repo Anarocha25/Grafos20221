@@ -11,6 +11,12 @@ def print_ex_2(D: np.array, vertice_s: int):
             indices = np.where(matriz_aux[:, 1] == ind)[0]
             print(ind, ": ", matriz_aux[indices,0])
 
+def print_ex_3(ciclo: list):
+    if len(ciclo) > 0:
+        print("1 \n")
+        print(ciclo)
+    else:
+        print("0")
 
 def print_ex_4(D, A):
     for vertice, distancia in list(D.items()):
