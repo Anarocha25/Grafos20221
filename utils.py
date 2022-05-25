@@ -33,7 +33,5 @@ def print_ex_4(D, A):
         print(f"{vertice}: {', '.join(reversed(caminho))}; d={distancia}")
 
 def print_ex_5(D: np.array):
-    for ind in range(len(D)):
-        distancia = D[ind, :].tolist()
-        aux = [str(ind+1), distancia]
-        print(aux[0], ': ', aux[1])
+    for s, distancias in enumerate(D):
+        print(str(s+1), ': ', ",".join([str(d) for d in distancias]))

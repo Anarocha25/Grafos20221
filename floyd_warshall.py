@@ -10,8 +10,7 @@ def floyd_warshall(grafo: GrafoNaoDirigido):
     for vertice in grafo.vertices:
         vizinhos = grafo.vizinhos(vertice) 
         for vizinho in vizinhos:
-            peso = grafo.peso(vertice, vizinho)
-            D[vertice-1, vizinho-1] = peso
+            D[vertice-1, vizinho-1] = grafo.peso(vertice, vizinho)
     
     for vertice_k in grafo.vertices:
         for vertice_u in grafo.vertices:
