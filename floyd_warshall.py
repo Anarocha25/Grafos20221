@@ -16,8 +16,7 @@ def floyd_warshall(grafo: GrafoNaoDirigido):
     for vertice_k in grafo.vertices:
         for vertice_u in grafo.vertices:
             for vertice_v in grafo.vertices:
-                if D[vertice_u-1, vertice_v-1] > D[vertice_u-1, vertice_k-1] + D[vertice_k-1, vertice_v-1]:
-                    D[vertice_u-1, vertice_v-1] = D[vertice_u-1, vertice_k-1] + D[vertice_k-1, vertice_v-1]
+                D[vertice_u-1, vertice_v-1] = min(D[vertice_u-1, vertice_v-1], D[vertice_u-1, vertice_k-1] + D[vertice_k-1, vertice_v-1])
     return D
 
 if __name__ == '__main__':
