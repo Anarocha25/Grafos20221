@@ -29,9 +29,15 @@ def busca_largura(grafo: GrafoNaoDirigido, vertice_s: int):
     return D, A
 
 if __name__ == '__main__':
+    vertice_inicial = input("Vértice inicial (int): ")
+    try:
+        vertice_inicial = int(vertice_inicial)
+    except ValueError:
+        raise ValueError("Vértice inicial tem que ser um número")
+
     arquivo = os.path.join('arquivos', 'buscas.net')
     grafo1 = GrafoNaoDirigido(arquivo)
-    vertice_s = 7
-    D, A = busca_largura(grafo1, vertice_s)
+    vertice_inicial = 7
+    D, A = busca_largura(grafo1, vertice_inicial)
 
-    print_ex_2(D, vertice_s)
+    print_ex_2(D, vertice_inicial)
