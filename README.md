@@ -1,4 +1,4 @@
-# Implementação de algoritmos de busca de grafos
+# Implementação de algoritmos de busca em grafos
 
 O projeto consiste na implementação de uma classe grafos que recebe como parâmetro um arquivo .net contendo os vértices e arestas de um grafo não dirigido. Além de um conjunto de 5 algoritmos de busca, sendo eles:
 - Busca em largura
