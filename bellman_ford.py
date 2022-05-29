@@ -8,7 +8,6 @@ def bellman_ford(grafo: GrafoNaoDirigido, vertice_inicial: int):
     A = {vertice: None for vertice in grafo.vertices}
     D[vertice_inicial] = 0
 
-    # Question: Why do we iterate over the vertices?
     for _ in range(1, grafo.qtdVertices()):
         for u, v in grafo.arestas:
             peso = grafo.peso(u,v)
