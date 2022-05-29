@@ -18,3 +18,7 @@ Para instalar os requisitos, execute
 ## Autores
 
 Os autores são estudantes de engenharia de controle e automação na Universidade Federal de Santa Catarina.
+
+## Fonte
+
+O projeto está disponível no Github em https://github.com/Anarocha25/Grafos20221
