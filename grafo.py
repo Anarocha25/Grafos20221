@@ -2,12 +2,13 @@ import numpy as np
 import os
 from parse import search
 
-class GrafoNaoDirigido():
+class Grafo():
     vertices = {}
     arestas = []
     pesos = {}
 
-    def __init__(self, arquivo) -> None:
+    def __init__(self, arquivo, nao_dirigido=False) -> None:
+        self.nao_dirigido = nao_dirigido
         self.ler(arquivo)
 
     def qtdVertices(self):
@@ -18,57 +19,67 @@ class GrafoNaoDirigido():
         """ Retorna a quantidade de arestas do grafo """
         return len(self.arestas)
 
-    def grau(self, vertice_key: int):
+    def grau(self, chave_vertice: int):
         """ Retorna o grau do vértice v
             Args:
-                vertice_key int: Contém a chave do vertice
+                chave_vertice int: Contém a chave do vertice
         """
-        return len(self.vizinhos(vertice_key))
+        return len(self.vizinhos(chave_vertice))
 
-    def rotulo(self, vertice_key: int):
+    def rotulo(self, chave_vertice: int):
         """ Retorna o rótulo do vértice v
             Args:
                 vertice_v int: Contém a chave do vertice
         """
-        return self.vertices[vertice_key]
+        return self.vertices[chave_vertice]
 
-    def vizinhos(self, vertice_key):
-        """ Retorna os vizinhos do vértice cuja chave é vertice_key
+    def vizinhos(self, chave_vertice):
+        """ Retorna os vizinhos do vértice cuja chave é chave_vertice
             Args:
-                vertice_key int: Contém a chave do vertice
+                chave_vertice int: Contém a chave do vertice
         """
         vizinhos = []
         for aresta in self.arestas:
-            if aresta[0] == vertice_key:
+            if aresta[0] == chave_vertice:
                 vizinhos.append(aresta[1])
-            elif aresta[1] == vertice_key:
-                vizinhos.append(aresta[0])
+            if self.nao_dirigido:
+                if aresta[1] == chave_vertice and aresta[1] not in vizinhos:
+                    vizinhos.append(aresta[0])
         return vizinhos
 
-    def haAresta(self, vertice_key_1: int, vertice_key_2: int):
-        """ Se {vertice_key_1, vertice_key_2} ∈ E, retorna verdadeiro; se não existir, retorna falso
+    def haAresta(self, chave_vertice_1: int, chave_vertice_2: int):
+        """ Se {chave_vertice_1, chave_vertice_2} ∈ E, retorna verdadeiro; se não existir, retorna falso
 
             Args:
-                vertice_key_1 int: Contém a chave do vertice 1
-                vertice_key_2 int: Contém a chave do vertice 2
+                chave_vertice_1 int: Contém a chave do vertice 1
+                chave_vertice_2 int: Contém a chave do vertice 2
         """
-        return ((vertice_key_1, vertice_key_2) in self.arestas) or ((vertice_key_2, vertice_key_1) in self.arestas)
+        if self.nao_dirigido:
+            return ((chave_vertice_1, chave_vertice_2) in self.arestas) or ((chave_vertice_2, chave_vertice_1) in self.arestas)
+        else:
+            return (chave_vertice_1, chave_vertice_2) in self.arestas
 
-    def peso(self, vertice_key_1, vertice_key_2):
-        """ Se {vertice_key_1, vertice_key_2} ∈ E, retorna o peso da aresta {vertice_key_1, vertice_key_2}; 
+    def peso(self, chave_vertice_1, chave_vertice_2):
+        """ Se {chave_vertice_1, chave_vertice_2} ∈ E, retorna o peso da aresta {chave_vertice_1, chave_vertice_2}; 
             se não existir, retorna um valor infinito positivo
 
             Args:
-                vertice_key_1 int: Contém a chave do vertice 1
-                vertice_key_2 int: Contém a chave do vertice 2
+                chave_vertice_1 int: Contém a chave do vertice 1
+                chave_vertice_2 int: Contém a chave do vertice 2
         """
-        return self.pesos.get(
-            str((vertice_key_1, vertice_key_2)),
-            self.pesos.get(
-                str((vertice_key_2, vertice_key_1)),
+        if self.nao_dirigido:
+            return self.pesos.get(
+                str((chave_vertice_1, chave_vertice_2)),
+                self.pesos.get(
+                    str((chave_vertice_2, chave_vertice_1)),
+                    np.inf
+                )
+            )
+        else:
+            return self.pesos.get(
+                str((chave_vertice_1, chave_vertice_2)),
                 np.inf
             )
-        )
 
     def ler(self, arquivo):
         """ Carrega um grafo a partir de um arquivo .net definido como:
@@ -103,22 +114,6 @@ class GrafoNaoDirigido():
                 self.pesos[str(aresta)] = float(aux[-1])
         
 if __name__ == '__main__':
-    arquivo = os.path.join('arquivos', 'facebook_santiago.net')
-    grafo_face = GrafoNaoDirigido(arquivo)
-
-    assert grafo_face.qtdVertices() == 688
-    assert grafo_face.qtdArestas() == 8725
-    assert grafo_face.grau(1) == 58
-    assert grafo_face.rotulo(1) == "João Luiz Ferreira Júnior"
-    assert grafo_face.vizinhos(1) == [
-        135, 269, 653, 565, 221, 657, 367, 315, 143, 451, 147, 662, 227, 150, 412, 322,
-        349, 573, 317, 328, 577, 534, 283, 237, 586, 244, 336, 506, 542, 589, 250, 257,
-        294, 591, 40, 342, 239, 168, 169, 387, 299, 206, 433, 554, 207, 649, 562, 302,
-        521, 260, 131, 256, 241, 512, 53, 98, 211, 12
-    ]
-    assert grafo_face.haAresta(1, 135) is True
-    assert grafo_face.haAresta(135, 1) is True
-    assert grafo_face.haAresta(1, 136) is False
-    assert grafo_face.peso(1, 2) == np.inf
-    assert grafo_face.peso(1, 12) == 1.0
-    assert grafo_face.peso(12, 1) == 1.0
+    arquivo = os.path.join('arquivos', 'dirigido_simpsons_amizades1.net')
+    nao_dirigido = False
+    grafo = Grafo(arquivo, nao_dirigido)

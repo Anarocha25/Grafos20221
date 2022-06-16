@@ -1,11 +1,10 @@
-# Implementação de algoritmos de busca em grafos
+# Implementação de algoritmos - parte 2
 
-O projeto consiste na implementação de uma classe grafos que recebe como parâmetro um arquivo .net contendo os vértices e arestas de um grafo não dirigido. Além de um conjunto de 5 algoritmos de busca, sendo eles:
-- Busca em largura
-- Ciclo Euleriano
-- Bellman-Ford
-- Dijkstra
-- Floyd-Warshall
+O projeto consiste na implementação de uma classe grafos que recebe como parâmetro um arquivo .net contendo os vértices e arestas de um grafo não dirigido ou dirigido. Além de um conjunto de 5 algoritmos, sendo eles:
+- Componentes Fortemente Conexas
+- Ordenação Topológica
+- Kruskal
+- Prim
 
 ## Requisitos
 
