@@ -2,7 +2,7 @@ import os
 import ast
 import numpy as np
 from grafo import Grafo
-from utils import print_kruskal
+from utils import minimum_spanning_tree
 
 def kruskal(grafo):
     A = []
@@ -42,4 +42,4 @@ if __name__ == '__main__':
     nao_dirigido = True
     grafo = Grafo(arquivo, nao_dirigido)
     A, somatorio_pesos = kruskal(grafo)
-    print_kruskal(A, somatorio_pesos)
+    minimum_spanning_tree(A, somatorio_pesos)
