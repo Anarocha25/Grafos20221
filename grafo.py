@@ -97,7 +97,10 @@ class Grafo():
                 arquivo (str): Nome do arquivo contendo o diretório
         """
         with open(arquivo, "r") as file:
-            vertices, arestas = file.read().split('*edges')
+            if self.nao_dirigido:
+                vertices, arestas = file.read().split('*edges')
+            else:
+                vertices, arestas = file.read().split('*arcs')
             vertices = vertices.split('\n')[1:-1]
             
             for ind, vertice in enumerate(vertices):
@@ -112,20 +115,3 @@ class Grafo():
                 aresta = (int(aux[0]), int(aux[1]))
                 self.arestas.append(aresta)
                 self.pesos[str(aresta)] = float(aux[-1])
-        
-if __name__ == '__main__':
-    arquivo = os.path.join('arquivos', 'dirigido_simpsons_amizades1.net')
-    nao_dirigido = False
-    grafo = Grafo(arquivo, nao_dirigido)
-
-    assert grafo.qtdVertices() == 12
-    assert grafo.qtdArestas() == 52
-    assert grafo.grau(1) == 4
-    assert grafo.rotulo(1) == "Homer Jay Simpson"
-    assert grafo.vizinhos(1) == [2, 3, 4, 5]
-    assert grafo.haAresta(1, 2) is True
-    assert grafo.haAresta(2, 1) is True
-    assert grafo.haAresta(1, 6) is False
-    assert grafo.peso(1, 24) == np.inf
-    assert grafo.peso(1, 5) == 1.0
-    assert grafo.peso(2, 1) == 1.0
