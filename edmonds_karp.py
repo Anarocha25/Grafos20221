@@ -2,7 +2,7 @@ import numpy as np
 import os
 from grafo import Grafo
 
-def edmonds_karp(G, G_res, vertice_s, vertice_t):
+def caminho_aumentante(G, G_res, vertice_s, vertice_t):
     C = np.full(G.qtdVertices(), False)
     C[vertice_s - 1] = True
     A = np.full(G.qtdVertices(), None)
@@ -52,8 +52,8 @@ if __name__ == '__main__':
     grafo = Grafo(arquivo)
     G_res = Grafo(arquivo)
     vertice_s = 1 
-    vertice_t = 6
+    vertice_t = 5
 
-    caminho = edmonds_karp(grafo, G_res, vertice_s, vertice_t)
+    caminho = caminho_aumentante(grafo, G_res, vertice_s, vertice_t)
 
     obtem_fluxo_maximo(caminho)
