@@ -3,6 +3,7 @@ import os
 from grafo import Grafo
 
 def caminho_aumentante(G, G_res, vertice_s, vertice_t):
+    "Encontra caminho aumentante"
     C = np.full(G.qtdVertices(), False)
     C[vertice_s - 1] = True
     A = np.full(G.qtdVertices(), None)
@@ -31,6 +32,7 @@ def caminho_aumentante(G, G_res, vertice_s, vertice_t):
     return None
 
 def obtem_fluxo_maximo(caminho):
+    "Obtem o fluxo a partir do caminho aumentante"
     total = 0
     anterior = np.inf
     if caminho is not None:

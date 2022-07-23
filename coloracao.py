@@ -4,6 +4,7 @@ import os
 import itertools
 
 def subconjuntos_possiveis(lista_vertices):
+    "Obtem todos os subconjuntos possíveis de vértices de lista_vertices"
     combinations = []
     for r in range(len(lista_vertices)+1):
         for combination in itertools.combinations(lista_vertices, r):
@@ -12,6 +13,7 @@ def subconjuntos_possiveis(lista_vertices):
     return combinations
 
 def conjuntos_ind_max(vertices_G, arestas_G):
+    "Listagem de Conjuntos Independentes Maximais"
     sub_S = subconjuntos_possiveis(vertices_G)
     R = []
     for X in reversed(sub_S):
@@ -25,6 +27,7 @@ def conjuntos_ind_max(vertices_G, arestas_G):
     return R
 
 def encontrar_conj_i(subconj_S, conj_S, conj_I):
+    "Encontrar índice do conjunto S total associado ao f(S\I)"
     i = subconj_S.copy()
     for val_I in conj_I:
         i.remove(val_I)
@@ -35,6 +38,7 @@ def encontrar_conj_i(subconj_S, conj_S, conj_I):
     return ind_i
 
 def coloracao(G):
+    "Encontra quantida mínima de cores para colorir o grafo"
     rows = 2**G.qtdVertices()
     cols = G.qtdVertices()
     tabela_aux = np.zeros((rows, cols))
@@ -78,6 +82,7 @@ def coloracao(G):
     return int(np.max(X))
 
 def obter_cor_vertice(G, min_cor):
+    "Obtem a cor associada a cada vertice"
     cor_vertices = np.full(G.qtdVertices(), np.inf)
     cores = np.arange(0, min_cor)
     for vertice in list(G.vertices.keys()):
