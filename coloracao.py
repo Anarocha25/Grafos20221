@@ -24,6 +24,16 @@ def conjuntos_ind_max(vertices_G, arestas_G):
             R.append(X)
     return R
 
+def encontrar_conj_i(subconj_S, conj_S, conj_I):
+    i = subconj_S.copy()
+    for val_I in conj_I:
+        i.remove(val_I)
+    for row_conj_S in range(len(conj_S)):
+        if conj_S[row_conj_S] == i:
+            ind_i = row_conj_S
+            break
+    return ind_i
+
 def coloracao(G):
     rows = 2**G.qtdVertices()
     cols = G.qtdVertices()
@@ -62,22 +72,38 @@ def coloracao(G):
 
             I_G_linha = conjuntos_ind_max(vertices_G_linha, arestas_G_linha)
             for I in I_G_linha:
-                i = S.copy()
-                for val_I in I:
-                    i.remove(val_I)
-                for row_conj_S in range(len(conjunto_S)):
-                    if conjunto_S[row_conj_S] == i:
-                        ind_i = row_conj_S
-                        break
-                    
+                ind_i = encontrar_conj_i(S, conjunto_S, I)
                 if X[ind_i] + 1 < X[ind]:
                     X[ind] = X[ind_i] + 1
-    return np.max(X)
+    return int(np.max(X))
+
+def obter_cor_vertice(G, min_cor):
+    cor_vertices = np.full(G.qtdVertices(), np.inf)
+    cores = np.arange(0, min_cor)
+    for vertice in list(G.vertices.keys()):
+        if cor_vertices[vertice - 1] == np.inf:
+            vizinhos = G.vizinhos(vertice)
+            cores_vizinhos = []
+            for vizinho in vizinhos:
+                if cor_vertices[vizinho -1] != np.inf:
+                    cores_vizinhos.append(cor_vertices[vizinho -1])
+            if len(cores_vizinhos) > 0:
+                for cor in cores:
+                    if cor not in cores_vizinhos:
+                        cor_vertice = cor
+                        break
+                cor_vertices[vertice - 1] = cor_vertice
+            else:
+                cor_vertices[vertice - 1] = cores[0]
+
+    return dict(zip(list(G.vertices.keys()), cor_vertices))
 
 if __name__ == '__main__':
 
     arquivo = os.path.join('arquivos', 'nao_dirigido.net')
     grafo = Grafo(arquivo, nao_dirigido=True)
-    resp = coloracao(grafo)
-    print(resp)
+    qtd_cores = coloracao(grafo)
+    print("Quantidade mínima de cores: ", qtd_cores)
 
+    cor_cada_vertice = obter_cor_vertice(grafo, qtd_cores)
+    print("\nCor associada a cada vértice: ", cor_cada_vertice)
