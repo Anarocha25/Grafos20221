@@ -97,10 +97,7 @@ class Grafo():
                 arquivo (str): Nome do arquivo contendo o diretório
         """
         with open(arquivo, "r") as file:
-            if self.nao_dirigido:
-                vertices, arestas = file.read().split('*edges')
-            else:
-                vertices, arestas = file.read().split('*arcs')
+            vertices, arestas = file.read().split('*arcs')
             vertices = vertices.split('\n')[1:-1]
             
             for ind, vertice in enumerate(vertices):
